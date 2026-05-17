@@ -55,17 +55,38 @@ namespace DemoProject
 
                     if (ctr > 0)
                     {
-                        // Clear recovery sessions
+                        // 1. Clear recovery wizard parameters
                         Session.Remove("RecoveryEmail");
                         Session.Remove("RecoveryAccount");
                         Session.Remove("RecoveryQuestion");
                         Session.Remove("RecoveryVerified");
 
-                        lblResult.Text = "<span style='color:green;'>✅ Password reset successfully! " +
-                                         "<a href='Login.aspx'>Click here to Login</a></span>";
+                        // 2. Clear out login auto-bypass states to keep the login page locked
+                        Session.Clear();
+                        Session.Abandon();
+
+                        // 3. Inject an active, animated UI countdown directly into the results label
+                        string countdownScript = @"
+                            var seconds = 3;
+                            var container = document.getElementById('" + lblResult.ClientID + @"');
+                            container.style.borderLeft = '4px solid #27ae60';
+                            
+                            var interval = setInterval(function() {
+                                container.innerHTML = ""<span style='color:#27ae60; font-weight:bold;'>✅ Password reset successfully! Redirecting to login in "" + seconds + "" seconds...</span>"";
+                                seconds--;
+                                if (seconds < 0) {
+                                    clearInterval(interval);
+                                    window.location.href = 'Login.aspx';
+                                }
+                            }, 1000);
+                        ";
+
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "RedirectCountdown", countdownScript, true);
                     }
                     else
+                    {
                         lblResult.Text = "<span style='color:red;'>Reset failed. Please try again.</span>";
+                    }
                 }
             }
         }

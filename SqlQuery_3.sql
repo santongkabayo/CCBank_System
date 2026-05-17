@@ -1,1 +1,4 @@
-﻿UPDATE USER_TBL SET ACCOUNT_STATUS = 'Active' WHERE ACCOUNT_STATUS IS NULL;
+﻿SELECT dest.text AS [SQL Command Executed], deqs.last_execution_time AS [Execution Time]
+FROM sys.dm_exec_query_stats AS deqs
+CROSS APPLY sys.dm_exec_sql_text(deqs.sql_handle) AS dest
+ORDER BY deqs.last_execution_time DESC;
