@@ -178,25 +178,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin.aspx" />
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Content Include="CC bank.png" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Deposit.aspx" />
-    <Content Include="HtmlPage1.html" />
+    <Content Include="ForgotPassword.aspx" />
     <Content Include="Logout.aspx" />
     <Content Include="MyDepositsWithdrawals.aspx" />
     <Content Include="MySentReceived.aspx" />
+    <Content Include="Profile.aspx" />
+    <Content Include="Receipt.aspx" />
     <Content Include="Registration.aspx" />
+    <Content Include="ResetPassword.aspx" />
+    <Content Include="SecurityQuestion.aspx" />
     <Content Include="SendMoney.aspx" />
     <Content Include="StatementOfAccount.aspx" />
     <Content Include="Web.config" />
     <Content Include="Login.aspx" />
+    <Content Include="WebForm2.aspx" />
     <Content Include="Withdraw.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -217,6 +231,13 @@
     </Compile>
     <Compile Include="Deposit.aspx.designer.cs">
       <DependentUpon>Deposit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Logout.aspx.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
@@ -239,7 +260,21 @@
     <Compile Include="MySentReceived.aspx.designer.cs">
       <DependentUpon>MySentReceived.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Receipt.aspx.cs">
+      <DependentUpon>Receipt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Receipt.aspx.designer.cs">
+      <DependentUpon>Receipt.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Registration.aspx.cs">
       <DependentUpon>Registration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -254,6 +289,20 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SecurityQuestion.aspx.cs">
+      <DependentUpon>SecurityQuestion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SecurityQuestion.aspx.designer.cs">
+      <DependentUpon>SecurityQuestion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SendMoney.aspx.cs">
       <DependentUpon>SendMoney.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -267,6 +316,13 @@
     </Compile>
     <Compile Include="StatementOfAccount.aspx.designer.cs">
       <DependentUpon>StatementOfAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm2.aspx.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm2.aspx.designer.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Withdraw.aspx.cs">
       <DependentUpon>Withdraw.aspx</DependentUpon>

@@ -11,7 +11,7 @@ namespace DemoProject
 {
 
 
-    public partial class SendMoney
+    public partial class Receipt
     {
 
         /// <summary>
@@ -24,138 +24,93 @@ namespace DemoProject
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// ValidationSummary1 control.
+        /// lblTransDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
+        protected global::System.Web.UI.WebControls.Label lblTransDate;
 
         /// <summary>
-        /// lblMyAccount control.
+        /// lblTransID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMyAccount;
+        protected global::System.Web.UI.WebControls.Label lblTransID;
 
         /// <summary>
-        /// lblBalance control.
+        /// lblTransType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBalance;
+        protected global::System.Web.UI.WebControls.Label lblTransType;
 
         /// <summary>
-        /// txtRecipientAcct control.
+        /// lblAccountNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRecipientAcct;
+        protected global::System.Web.UI.WebControls.Label lblAccountNo;
 
         /// <summary>
-        /// rfvRecipient control.
+        /// lblAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRecipient;
+        protected global::System.Web.UI.WebControls.Label lblAmount;
 
         /// <summary>
-        /// btnLookup control.
+        /// lblBalanceAfter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLookup;
+        protected global::System.Web.UI.WebControls.Label lblBalanceAfter;
 
         /// <summary>
-        /// pnlSendForm control.
+        /// pnlSentTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSendForm;
+        protected global::System.Web.UI.WebControls.Panel pnlSentTo;
 
         /// <summary>
-        /// lblRecipientAcct control.
+        /// lblSentTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRecipientAcct;
+        protected global::System.Web.UI.WebControls.Label lblSentTo;
 
         /// <summary>
-        /// lblRecipientName control.
+        /// pnlReceivedFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRecipientName;
+        protected global::System.Web.UI.WebControls.Panel pnlReceivedFrom;
 
         /// <summary>
-        /// txtAmount control.
+        /// lblReceivedFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAmount;
-
-        /// <summary>
-        /// rfvAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAmount;
-
-        /// <summary>
-        /// rngAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator rngAmount;
-
-        /// <summary>
-        /// txtHiddenPIN control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden txtHiddenPIN;
-
-        /// <summary>
-        /// btnSend control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSend;
-
-        /// <summary>
-        /// lblResult control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblResult;
+        protected global::System.Web.UI.WebControls.Label lblReceivedFrom;
     }
 }

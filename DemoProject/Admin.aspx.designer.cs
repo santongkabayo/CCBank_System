@@ -11,7 +11,7 @@ namespace DemoProject
 {
 
 
-    public partial class Dashboard
+    public partial class Admin
     {
 
         /// <summary>
@@ -24,93 +24,84 @@ namespace DemoProject
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// lblWelcome control.
+        /// lblTotalUsers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWelcome;
+        protected global::System.Web.UI.WebControls.Label lblTotalUsers;
 
         /// <summary>
-        /// lblBalance control.
+        /// lblTotalBalance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBalance;
+        protected global::System.Web.UI.WebControls.Label lblTotalBalance;
 
         /// <summary>
-        /// lblTotalSent control.
+        /// lblTodayTrans control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalSent;
+        protected global::System.Web.UI.WebControls.Label lblTodayTrans;
 
         /// <summary>
-        /// lblAccountNo control.
+        /// txtTargetAccount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAccountNo;
+        protected global::System.Web.UI.WebControls.TextBox txtTargetAccount;
 
         /// <summary>
-        /// lblAccountNo2 control.
+        /// btnToggleLock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAccountNo2;
+        protected global::System.Web.UI.WebControls.Button btnToggleLock;
 
         /// <summary>
-        /// lblName control.
+        /// btnResetPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblName;
+        protected global::System.Web.UI.WebControls.Button btnResetPassword;
 
         /// <summary>
-        /// lblDateRegistered control.
+        /// lblAdminResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDateRegistered;
+        protected global::System.Web.UI.WebControls.Label lblAdminResult;
 
         /// <summary>
-        /// pnlNotif control.
+        /// gvUsers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlNotif;
+        protected global::System.Web.UI.WebControls.GridView gvUsers;
 
         /// <summary>
-        /// grdNotif control.
+        /// gvAllTransactions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdNotif;
-
-        /// <summary>
-        /// grdRecentTrans control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdRecentTrans;
+        protected global::System.Web.UI.WebControls.GridView gvAllTransactions;
     }
 }
