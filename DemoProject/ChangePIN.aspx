@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Deposit.aspx.cs" Inherits="DemoProject.Deposit" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChangePIN.aspx.cs" Inherits="DemoProject.ChangePIN" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>CC Bank - Deposit</title>
+    <title>CCBank - Change PIN</title>
     <style>
         :root { --bg:#f5f0e8; --card:#fff; --text:#2c3e50; --subtext:#666; --border:#e0d0c0; --accent:#e67e22; --input-bg:#fff; --input-border:#ddd; --label:#555; --result-bg:#fff8f0; --muted:#999; --hover:#fff8f0; --shadow: rgba(0,0,0,0.08); }
         body.dark { --bg:#0f0f1a; --card:#1e1e30; --text:#f0f0f0; --subtext:#aaa; --border:#333; --accent:#f5b942; --input-bg:#2a2a3e; --input-border:#444; --label:#ccc; --result-bg:#2a2a3e; --hover:#2a2a3e; --shadow: rgba(0,0,0,0.3); }
@@ -20,35 +20,28 @@
         .navbar-links a:hover { background:rgba(255,255,255,0.2); }
         .navbar-links .btn-logout { background:rgba(231,76,60,0.8); color:white; padding:7px 14px; border-radius:6px; font-size:13px; text-decoration:none; font-weight:bold; margin-left:6px; }
         .theme-btn { background:rgba(255,255,255,0.2); border:none; border-radius:20px; padding:6px 12px; cursor:pointer; font-size:16px; color:white; margin-left:8px; }
-        .main { max-width:560px; margin:40px auto; padding:0 20px; }
+        .main { max-width:520px; margin:40px auto; padding:0 20px; }
         .page-card { background:var(--card); border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.1); border:1px solid var(--border); }
         .page-title { display:flex; align-items:center; gap:10px; margin-bottom:24px; }
         .page-title .icon { font-size:30px; }
         .page-title h2 { color:var(--text); font-size:20px; }
-        .info-row { display:flex; justify-content:space-between; background:var(--hover); border-radius:8px; padding:12px 16px; margin-bottom:12px; font-size:14px; border:1px solid var(--border); }
-        .info-row span:first-child { color:var(--subtext); }
-        .info-row span:last-child { font-weight:bold; color:var(--accent); }
+        .acct-row { background:var(--hover); border-radius:8px; padding:12px 16px; margin-bottom:16px; font-size:14px; border:1px solid var(--border); color:var(--subtext); }
+        .acct-row strong { color:var(--accent); }
         .divider { border:none; border-top:1px solid var(--border); margin:16px 0; }
-        .row { margin-bottom:14px; position:relative; }
-        .label { display:block; font-weight:bold; color:var(--label); margin-bottom:5px; font-size:13px; }
-        input[type="text"] { width:100%; padding:10px 14px; border:1.5px solid var(--input-border); border-radius:8px; font-size:14px; background:var(--input-bg); color:var(--text); }
-        input[type="text"]:focus { border-color:#f0a070; outline:none; box-shadow:0 0 0 3px rgba(240,160,112,0.15); }
-        .hint { font-size:11px; color:var(--muted); margin-top:4px; margin-bottom:4px; }
-        .pin-inputs { display:flex; gap:10px; justify-content:center; margin-top:6px; }
+        .row { margin-bottom:20px; }
+        .label { display:block; font-weight:bold; color:var(--label); margin-bottom:8px; font-size:13px; text-align:center; }
+        .pin-inputs { display:flex; gap:10px; justify-content:center; }
         .pin-inputs input { width:60px; height:60px; text-align:center; font-size:22px; font-weight:bold; border:1.5px solid var(--input-border); border-radius:10px; background:var(--input-bg); color:var(--text); }
         .pin-inputs input:focus { border-color:#f0a070; outline:none; box-shadow:0 0 0 3px rgba(240,160,112,0.15); }
-        .btn-row { display:flex; gap:10px; margin-top:16px; }
-        .btn-primary { flex:2; background:linear-gradient(135deg,#f0a070,#f5b942); color:white; padding:12px; border:none; border-radius:8px; cursor:pointer; font-size:15px; font-weight:bold; box-shadow:0 4px 15px rgba(240,160,112,0.4); }
+        .btn-row { display:flex; gap:10px; margin-top:8px; }
+        .btn-primary { flex:2; background:linear-gradient(135deg,#f0a070,#f5b942); color:white; padding:12px; border:none; border-radius:8px; cursor:pointer; font-size:15px; font-weight:bold; }
         .btn-primary:hover { opacity:0.88; }
         .btn-secondary { flex:1; background:var(--input-bg); color:var(--label); padding:12px; border:1.5px solid var(--input-border); border-radius:8px; cursor:pointer; font-size:14px; }
         .result { margin-top:14px; padding:12px 14px; background:var(--result-bg); border-left:4px solid #f0a070; border-radius:6px; font-size:13px; min-height:20px; color:var(--text); }
         .back-link { margin-top:14px; text-align:center; font-size:13px; }
         .back-link a { color:var(--accent); text-decoration:none; font-weight:bold; }
-        .error { color:#e74c3c; font-size:13px; display:block; margin-top:4px; }
-        .hidden-validator-input { opacity:0 !important; position:absolute !important; z-index:-1 !important; height:0 !important; width:0 !important; padding:0 !important; margin:0 !important; border:none !important; }
-        .pin-section { background:var(--hover); border:1px solid var(--border); border-radius:10px; padding:16px; margin-bottom:14px; text-align:center; }
-        .pin-section .pin-label { font-weight:bold; color:var(--label); font-size:13px; margin-bottom:10px; display:block; }
-                        /* ── ANIMATIONS ── */
+        .error { color:#e74c3c; font-size:13px; }
+                /* ── ANIMATIONS ── */
 @keyframes slideDown {
     from { transform: translateY(-100%); opacity: 0; }
     to   { transform: translateY(0);     opacity: 1; }
@@ -173,7 +166,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
     </style>
 </head>
 <body>
-    <div class="page-loader" id="pageLoader">
+        <div class="page-loader" id="pageLoader">
     <div class="loader-spinner"></div>
 </div>
     <nav class="navbar">
@@ -185,6 +178,9 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
             <a href="Dashboard.aspx">🏠 Home</a>
             <a href="StatementOfAccount.aspx">📄 Statement</a>
             <a href="MyDepositsWithdrawals.aspx">📊 Reports</a>
+            <a href="ChangePassword.aspx">🔑 Change Password</a>
+            <a href="ChangePIN.aspx">🔐 Change PIN</a>
+            <a href="Profile.aspx">👤 Profile</a>
             <a href="Logout.aspx" class="btn-logout">🚪 Logout</a>
             <button class="theme-btn" onclick="toggleTheme()">🌑</button>
         </div>
@@ -194,45 +190,49 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
     <div class="main">
         <div class="page-card">
             <div class="page-title">
-                <span class="icon">💰</span>
-                <h2>Deposit</h2>
+                <span class="icon">🔐</span>
+                <h2>Change Transaction PIN</h2>
             </div>
 
-            <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" CssClass="error" HeaderText="Please correct the following errors:" />
-
-            <div class="info-row">
-                <span>Account No</span>
-                <span><asp:Label ID="lblAccountNo" runat="server"></asp:Label></span>
+            <div class="acct-row">
+                Account No: <strong><asp:Label ID="lblAccountNo" runat="server"></asp:Label></strong>
             </div>
-            <div class="info-row">
-                <span>Current Balance</span>
-                <span>₱<asp:Label ID="lblBalance" runat="server"></asp:Label></span>
-            </div>
-
-            <hr class="divider" />
 
             <div class="row">
-                <span class="label">Amount to Deposit</span>
-                <input type="text" id="txtAmountDisplay" placeholder="0.00" autocomplete="off" />
-                <asp:TextBox ID="txtAmount" runat="server" CssClass="hidden-validator-input"></asp:TextBox>
-                <div class="hint">Min: ₱100.00 | Max: ₱500,000.00</div>
-                <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount" ErrorMessage="Amount is required." ForeColor="Red" Display="Dynamic" CssClass="error" />
-                <asp:RangeValidator ID="rngAmount" runat="server" ControlToValidate="txtAmount" MinimumValue="100" MaximumValue="500000" Type="Double" ErrorMessage="Amount must be between ₱100.00 and ₱500,000.00." ForeColor="Red" Display="Dynamic" CssClass="error" />
+                <span class="label">Current PIN</span>
+                <div class="pin-inputs">
+                    <asp:TextBox ID="curPin1" runat="server" MaxLength="1" CssClass="cur-pin"></asp:TextBox>
+                    <asp:TextBox ID="curPin2" runat="server" MaxLength="1" CssClass="cur-pin"></asp:TextBox>
+                    <asp:TextBox ID="curPin3" runat="server" MaxLength="1" CssClass="cur-pin"></asp:TextBox>
+                    <asp:TextBox ID="curPin4" runat="server" MaxLength="1" CssClass="cur-pin"></asp:TextBox>
+                </div>
             </div>
 
-            <div class="pin-section">
-                <span class="pin-label">🔐 Enter Transaction PIN to Confirm</span>
+            <div class="row">
+                <span class="label">New PIN</span>
                 <div class="pin-inputs">
-                    <asp:TextBox ID="pin1" runat="server" MaxLength="1" CssClass="dep-pin"></asp:TextBox>
-                    <asp:TextBox ID="pin2" runat="server" MaxLength="1" CssClass="dep-pin"></asp:TextBox>
-                    <asp:TextBox ID="pin3" runat="server" MaxLength="1" CssClass="dep-pin"></asp:TextBox>
-                    <asp:TextBox ID="pin4" runat="server" MaxLength="1" CssClass="dep-pin"></asp:TextBox>
+                    <asp:TextBox ID="newPin1" runat="server" MaxLength="1" CssClass="new-pin"></asp:TextBox>
+                    <asp:TextBox ID="newPin2" runat="server" MaxLength="1" CssClass="new-pin"></asp:TextBox>
+                    <asp:TextBox ID="newPin3" runat="server" MaxLength="1" CssClass="new-pin"></asp:TextBox>
+                    <asp:TextBox ID="newPin4" runat="server" MaxLength="1" CssClass="new-pin"></asp:TextBox>
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="label">Confirm New PIN</span>
+                <div class="pin-inputs">
+                    <asp:TextBox ID="conPin1" runat="server" MaxLength="1" CssClass="con-pin"></asp:TextBox>
+                    <asp:TextBox ID="conPin2" runat="server" MaxLength="1" CssClass="con-pin"></asp:TextBox>
+                    <asp:TextBox ID="conPin3" runat="server" MaxLength="1" CssClass="con-pin"></asp:TextBox>
+                    <asp:TextBox ID="conPin4" runat="server" MaxLength="1" CssClass="con-pin"></asp:TextBox>
                 </div>
             </div>
 
             <div class="btn-row">
-                <asp:Button ID="btnDeposit" runat="server" Text="💰 Deposit" OnClick="btnDeposit_Click" CssClass="btn-primary" />
-                <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" CausesValidation="false" CssClass="btn-secondary" />
+                <asp:Button ID="btnChange" runat="server" Text="🔐 Change PIN"
+                    OnClick="btnChange_Click" CssClass="btn-primary" />
+                <asp:Button ID="btnClear" runat="server" Text="Clear"
+                    OnClick="btnClear_Click" CausesValidation="false" CssClass="btn-secondary" />
             </div>
 
             <div class="result">
@@ -246,57 +246,42 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
     </div>
     </form>
 
-    <script>
-        // Hide page loader
-        window.addEventListener('load', function () {
-            var loader = document.getElementById('pageLoader');
-            loader.classList.add('hidden');
-            setTimeout(function () { loader.style.display = 'none'; }, 400);
-        });
+        <script>
+            // Hide page loader
+            window.addEventListener('load', function () {
+                var loader = document.getElementById('pageLoader');
+                loader.classList.add('hidden');
+                setTimeout(function () { loader.style.display = 'none'; }, 400);
+            });
 
-        // Theme toggle
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-            var btn = document.querySelector('.theme-btn');
-            btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌑';
-            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-        }
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark');
-            document.querySelector('.theme-btn').textContent = '☀️';
-        }
-
-        // Smooth page navigation with fade-out
-        document.querySelectorAll('a[href]').forEach(function (link) {
-            if (link.href && !link.href.includes('#') && link.target !== '_blank') {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    var href = this.href;
-                    var main = document.querySelector('.main') || document.querySelector('.page-card') || document.querySelector('.container');
-                    if (main) {
-                        main.style.opacity = '0';
-                        main.style.transform = 'translateY(-10px)';
-                        main.style.transition = 'opacity 0.3s, transform 0.3s';
-                    }
-                    setTimeout(function () { window.location.href = href; }, 280);
-                });
+            // Theme toggle
+            function toggleTheme() {
+                document.body.classList.toggle('dark');
+                var btn = document.querySelector('.theme-btn');
+                btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌑';
+                localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
             }
-        });
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark');
+                document.querySelector('.theme-btn').textContent = '☀️';
+            }
 
-        // Auto-jump PIN boxes
-        document.querySelectorAll('input.dep-pin').forEach(function (el, i, arr) {
-            el.addEventListener('input', function () {
-                this.value = this.value.replace(/\D/g, '');
-                if (this.value && i < arr.length - 1) arr[i + 1].focus();
+            // Smooth page fade-out on navigation
+            document.querySelectorAll('a[href]').forEach(function (link) {
+                if (link.href && !link.href.includes('#') && link.target !== '_blank') {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var href = this.href;
+                        var main = document.querySelector('.main') || document.querySelector('.page-card') || document.querySelector('.container');
+                        if (main) {
+                            main.style.opacity = '0';
+                            main.style.transform = 'translateY(-10px)';
+                            main.style.transition = 'opacity 0.3s, transform 0.3s';
+                        }
+                        setTimeout(function () { window.location.href = href; }, 280);
+                    });
+                }
             });
-            el.addEventListener('keydown', function (e) {
-                if (e.key === 'Backspace' && !this.value && i > 0) arr[i - 1].focus();
-            });
-        });
-
-        const realInput = document.getElementById('<%= txtAmount.ClientID %>');
-        const displayInput = document.getElementById('txtAmountDisplay');
-        displayInput.addEventListener('input', function () { realInput.value = this.value; });
 </script>
 </body>
 </html>

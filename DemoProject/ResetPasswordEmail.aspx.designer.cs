@@ -11,7 +11,7 @@ namespace DemoProject
 {
 
 
-    public partial class Withdraw
+    public partial class ResetPasswordEmail
     {
 
         /// <summary>
@@ -33,103 +33,67 @@ namespace DemoProject
         protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
 
         /// <summary>
-        /// lblAccountNo control.
+        /// txtNewPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAccountNo;
+        protected global::System.Web.UI.WebControls.TextBox txtNewPassword;
 
         /// <summary>
-        /// lblBalance control.
+        /// rfvNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBalance;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNew;
 
         /// <summary>
-        /// txtAmount control.
+        /// revNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAmount;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revNew;
 
         /// <summary>
-        /// rfvAmount control.
+        /// txtConfirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtConfirm;
 
         /// <summary>
-        /// rngAmount control.
+        /// rfvConfirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator rngAmount;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvConfirm;
 
         /// <summary>
-        /// pin1 control.
+        /// cvPw control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pin1;
+        protected global::System.Web.UI.WebControls.CompareValidator cvPw;
 
         /// <summary>
-        /// pin2 control.
+        /// btnReset control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pin2;
-
-        /// <summary>
-        /// pin3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pin3;
-
-        /// <summary>
-        /// pin4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pin4;
-
-        /// <summary>
-        /// btnWithdraw control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnWithdraw;
-
-        /// <summary>
-        /// btnClear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClear;
+        protected global::System.Web.UI.WebControls.Button btnReset;
 
         /// <summary>
         /// lblResult control.

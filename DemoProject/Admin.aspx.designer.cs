@@ -33,6 +33,15 @@ namespace DemoProject
         protected global::System.Web.UI.WebControls.Label lblTotalUsers;
 
         /// <summary>
+        /// lblLiveUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLiveUsers;
+
+        /// <summary>
         /// lblTotalBalance control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace DemoProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTodayTrans;
+
+        /// <summary>
+        /// gvUserAccessLogs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvUserAccessLogs;
 
         /// <summary>
         /// txtTargetAccount control.

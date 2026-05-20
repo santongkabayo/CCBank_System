@@ -17,6 +17,7 @@
             --result-bg: #fff8f0;
             --link: #e67e22;
             --hint: #aaa;
+            --shadow: rgba(0,0,0,0.08);
         }
         body.dark {
             --bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
@@ -29,6 +30,7 @@
             --result-bg: #2a2a3e;
             --link: #f5b942;
             --hint: #777;
+            --shadow: rgba(0,0,0,0.3);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; }
         body {
@@ -46,53 +48,51 @@
             padding: 8px 14px; cursor: pointer;
             font-size: 18px; backdrop-filter: blur(4px);
             z-index: 999;
+            transition: background 0.2s, transform 0.3s;
         }
+        .theme-toggle:hover { background: rgba(255,255,255,0.3); transform: rotate(20deg); }
+        
         .container {
             width: 440px;
             background: var(--card);
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.5s ease 0.1s both;
         }
-        .logo-area {
-            text-align: center; margin-bottom: 10px;
-        }
-        .logo-area img {
-            width: 120px; height: 120px; object-fit: contain;
-        }
-        .logo-area h1 {
-            color: var(--text); font-size: 22px; margin-top: 8px;
-        }
-        .logo-area p {
-            color: var(--subtext); font-size: 12px; margin-top: 2px;
-        }
-        .divider {
-            border: none; border-top: 1px solid var(--input-border);
-            margin: 16px 0;
-        }
+        .logo-area { text-align: center; margin-bottom: 10px; }
+        .logo-area img { width: 120px; height: 120px; object-fit: contain; transition: transform 0.3s; }
+        .logo-area img:hover { transform: rotate(-5deg) scale(1.05); }
+        .logo-area h1 { color: var(--text); font-size: 22px; margin-top: 8px; }
+        .logo-area p { color: var(--subtext); font-size: 12px; margin-top: 2px; }
+        
+        .divider { border: none; border-top: 1px solid var(--input-border); margin: 16px 0; }
         .row { margin-bottom: 16px; }
-        .label {
-            display: block; font-weight: bold;
-            color: var(--label); margin-bottom: 6px; font-size: 13px;
-        }
-        .input-wrap { position: relative; }
+        .label { display: block; font-weight: bold; color: var(--label); margin-bottom: 6px; font-size: 13px; }
+        
+        .input-wrap { position: relative; width: 100%; }
         .input-wrap input {
-            width: 100%; padding: 10px 40px 5px 5px;
+            width: 100%; padding: 12px 42px 12px 12px;
             border: 1.5px solid var(--input-border);
             border-radius: 8px; font-size: 14px;
             background: var(--input-bg); color: var(--text);
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
         }
         .input-wrap input:focus {
             border-color: #f0a070; outline: none;
+            transform: scale(1.01);
             box-shadow: 0 0 0 3px rgba(240,160,112,0.15);
         }
+        
         .toggle-pw {
             position: absolute; right: 12px; top: 50%;
             transform: translateY(-50%);
             cursor: pointer; font-size: 16px;
             background: none; border: none;
-            color: var(--hint);
+            color: var(--hint); z-index: 5;
+            padding: 4px; outline: none;
         }
+        
         .btn-row { display: flex; gap: 10px; margin-top: 8px; }
         .btn-primary {
             flex: 2;
@@ -101,35 +101,64 @@
             border-radius: 8px; cursor: pointer;
             font-size: 15px; font-weight: bold;
             box-shadow: 0 4px 15px rgba(240,160,112,0.4);
+            transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
         }
-        .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+        .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(240,160,112,0.5); }
+        .btn-primary:active { transform: scale(0.97); }
+        
         .btn-secondary {
             flex: 1; background: var(--input-bg);
             color: var(--label); padding: 12px;
             border: 1.5px solid var(--input-border);
             border-radius: 8px; cursor: pointer; font-size: 14px;
+            transition: opacity 0.2s, transform 0.2s;
         }
-        .btn-secondary:hover { opacity: 0.8; }
+        .btn-secondary:hover { opacity: 0.8; transform: translateY(-1px); }
+        
         .result {
             margin-top: 14px; padding: 10px 14px;
             background: var(--result-bg);
             border-left: 4px solid #f0a070;
             border-radius: 6px; font-size: 13px; min-height: 20px;
-            color: var(--text);
+            color: var(--text); transition: all 0.3s ease;
         }
-        .link-row {
-            margin-top: 16px; font-size: 13px;
-            color: var(--subtext); text-align: center;
+        .link-row { margin-top: 16px; font-size: 13px; color: var(--subtext); text-align: center; }
+        .link-row a { color: var(--link); text-decoration: none; font-weight: bold; transition: opacity 0.2s; }
+        .link-row a:hover { text-decoration: underline; opacity: 0.8; }
+        .error { color: #e74c3c; font-size: 13px; display: block; margin-bottom: 10px; }
+        
+        /* ── ANIMATIONS ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
-        .link-row a {
-            color: var(--link); text-decoration: none; font-weight: bold;
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── PAGE LOADER ── */
+        .page-loader {
+            position: fixed; inset: 0;
+            background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.4s;
         }
-        .link-row a:hover { text-decoration: underline; }
-        .error { color: #e74c3c; font-size: 13px; }
+        .page-loader.hidden { opacity: 0; pointer-events: none; }
+        .loader-spinner {
+            width: 48px; height: 48px;
+            border: 4px solid var(--input-border);
+            border-top-color: #f0a070;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()">🌑</button>
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-spinner"></div>
+    </div>
+    
+    <button type="button" class="theme-toggle" onclick="toggleTheme()">🌑</button>
+    
     <form id="form1" runat="server">
         <div class="container">
             <div class="logo-area">
@@ -146,9 +175,9 @@
             <div class="row">
                 <span class="label">Username</span>
                 <div class="input-wrap">
-                    <asp:TextBox ID="txtUsername" runat="server" MaxLength="50"></asp:TextBox>
+                    <asp:TextBox ID="txtUsername" runat="server" MaxLength="50" autocomplete="off"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvUsername" runat="server"
-                        ControlToValidate="txtUsername"
+                        ControlToValidate="txtUsername" Display="Dynamic" CssClass="error"
                         ErrorMessage="Username is required." ForeColor="Red" />
                 </div>
             </div>
@@ -156,12 +185,10 @@
             <div class="row">
                 <span class="label">Password</span>
                 <div class="input-wrap">
-                    <div class="input-wrap">
-    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" MaxLength="50"></asp:TextBox>
-    <button type="button" class="toggle-pw" onclick="togglePw(null, this)">🙈</button>
-</div>
+                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" MaxLength="50"></asp:TextBox>
+                    <button type="button" class="toggle-pw" onclick="togglePw()">👁️</button>
                     <asp:RequiredFieldValidator ID="rfvPassword" runat="server"
-                        ControlToValidate="txtPassword"
+                        ControlToValidate="txtPassword" Display="Dynamic" CssClass="error"
                         ErrorMessage="Password is required." ForeColor="Red" />
                 </div>
             </div>
@@ -178,38 +205,70 @@
             </div>
 
             <div class="link-row">
-                No account yet? <a href="Registration.aspx">Register here</a> 
-                </br></br>
-                <a href="ForgotPassword.aspx" style="color:#aaa;font-size:12px;">Forgot Password?</a>
-            </div>
+    No account yet? <a href="Registration.aspx">Register here</a> 
+    <br /><br />
+    <a href="ForgotPassword.aspx" style="color:#aaa;font-size:12px;">Forgot Password?</a>
+    &nbsp;|&nbsp;
+    <a href="ForgotPIN.aspx" style="color:#aaa;font-size:12px;">Forgot PIN?</a>
+</div>
         </div>
     </form>
 
     <script>
-        // Dark/Light mode
+        // Smoothly hide page loader on window load
+        window.addEventListener('load', function () {
+            var loader = document.getElementById('pageLoader');
+            if (loader) {
+                loader.classList.add('hidden');
+                setTimeout(function () { loader.style.display = 'none'; }, 400);
+            }
+        });
+
+        // Fixed Dynamic Password Visibility Toggle
+        function togglePw() {
+            const pwInput = document.getElementById('<%= txtPassword.ClientID %>');
+            const toggleBtn = document.querySelector('.toggle-pw');
+
+            if (pwInput && toggleBtn) {
+                if (pwInput.type === "password") {
+                    pwInput.type = "text";
+                    toggleBtn.textContent = "🙈";
+                } else {
+                    pwInput.type = "password";
+                    toggleBtn.textContent = "👁️";
+                }
+            }
+        }
+
+        // Theme preference management switcher
         function toggleTheme() {
             document.body.classList.toggle('dark');
             var btn = document.querySelector('.theme-toggle');
-            btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌑';
+            if (btn) btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌑';
             localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
         }
-        // Load saved theme
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark');
-            document.querySelector('.theme-toggle').textContent = '☀️';
+            var btn = document.querySelector('.theme-toggle');
+            if (btn) btn.textContent = '☀️';
         }
 
-        // Show/Hide password
-        function togglePw(inputId, btn) {
-            var input = document.getElementById('<%= txtPassword.ClientID %>');
-            if (input.type === 'password') {
-                input.type = 'text';
-                btn.textContent = '🙈';
-            } else {
-                input.type = 'password';
-                btn.textContent = '👁️';
+        // Outbound transitions handler
+        document.querySelectorAll('a[href]').forEach(function (link) {
+            if (link.href && !link.href.includes('#') && link.target !== '_blank') {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var href = this.href;
+                    var container = document.querySelector('.container');
+                    if (container) {
+                        container.style.opacity = '0';
+                        container.style.transform = 'translateY(-10px)';
+                        container.style.transition = 'opacity 0.3s, transform 0.3s';
+                    }
+                    setTimeout(function () { window.location.href = href; }, 280);
+                });
             }
-        }
+        });
     </script>
 </body>
 </html>

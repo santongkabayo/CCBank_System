@@ -64,6 +64,7 @@ namespace DemoProject
             bool isSuccess = false;
             string userRole = "Customer"; // Default fallback role state
             string logMessage = "";
+            string authenticatedAccountNo = "";
 
             using (var db = new SqlConnection(connDB))
             {
@@ -96,7 +97,8 @@ namespace DemoProject
 
                             // If account state is safe (Active), populate system session data arrays normally
                             isSuccess = true;
-                            Session["AccountNo"] = dr["ACCOUNT_NO"].ToString();
+                            authenticatedAccountNo = dr["ACCOUNT_NO"].ToString();
+                            Session["AccountNo"] = authenticatedAccountNo;
                             Session["Username"] = dr["USERNAME"].ToString();
                             Session["Lastname"] = dr["LASTNAME"].ToString();
                             Session["Firstname"] = dr["FIRSTNAME"].ToString();
@@ -112,6 +114,18 @@ namespace DemoProject
                         {
                             logMessage = $"FAILURE - Failed login attempt for user '{username}'. Invalid credentials.";
                         }
+                    }
+                }
+
+                // NEW FEATURE: Update session access flags and login timestamps upon successful validation
+                if (isSuccess && !string.IsNullOrEmpty(authenticatedAccountNo))
+                {
+                    using (var updateCmd = db.CreateCommand())
+                    {
+                        updateCmd.CommandType = CommandType.Text;
+                        updateCmd.CommandText = "UPDATE USER_TBL SET IS_LOGGED_IN = 1, LAST_LOGIN_TIME = GETDATE() WHERE ACCOUNT_NO = @acct";
+                        updateCmd.Parameters.AddWithValue("@acct", authenticatedAccountNo);
+                        updateCmd.ExecuteNonQuery();
                     }
                 }
             }

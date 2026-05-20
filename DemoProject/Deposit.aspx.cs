@@ -1,46 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Configuration;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data;
-
 
 namespace DemoProject
 {
     public partial class Deposit : System.Web.UI.Page
     {
-        // Gets the connection string from web.config to connect to the database
         string connDB = WebConfigurationManager.ConnectionStrings["connDB"].ConnectionString;
 
-        // Runs automatically when the page loads
         protected void Page_Load(object sender, EventArgs e)
         {
-            // If not logged in, send back to Login page safely
             if (Session["AccountNo"] == null) { Response.Redirect("Login.aspx"); return; }
-
-            // Load account info updates only on first logical trace window
             if (!IsPostBack) LoadInfo();
         }
 
-        /// <summary>
-        /// Computes and returns the secure current isolated balance from database logs.
-        /// </summary>
+        private string HashPassword(string text)
+        {
+            using (var sha = SHA256.Create())
+            {
+                byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(text));
+                StringBuilder sb = new StringBuilder();
+                foreach (byte b in bytes) sb.Append(b.ToString("x2"));
+                return sb.ToString();
+            }
+        }
+
         private decimal GetCurrentBalance(string accountNo, SqlConnection db, SqlTransaction transaction = null)
         {
             using (var cmd = db.CreateCommand())
             {
                 if (transaction != null) cmd.Transaction = transaction;
-
                 cmd.CommandText =
                     "SELECT ISNULL(SUM(CASE WHEN TRANS_TYPE IN ('D','R') THEN AMOUNT ELSE 0 END),0)" +
                     "     - ISNULL(SUM(CASE WHEN TRANS_TYPE IN ('W','S') THEN AMOUNT ELSE 0 END),0)" +
                     " FROM TRANSACTION_TBL WHERE ACCOUNT_NO = @acct";
                 cmd.Parameters.AddWithValue("@acct", accountNo);
-
                 return Convert.ToDecimal(cmd.ExecuteScalar());
             }
         }
@@ -49,11 +47,10 @@ namespace DemoProject
         {
             string accountNo = Session["AccountNo"].ToString();
             lblAccountNo.Text = accountNo;
-
             using (var db = new SqlConnection(connDB))
             {
                 db.Open();
-                lblBalance.Text = GetCurrentBalance(accountNo, db, null).ToString("N2");
+                lblBalance.Text = GetCurrentBalance(accountNo, db).ToString("N2");
             }
         }
 
@@ -63,17 +60,21 @@ namespace DemoProject
             if (!Page.IsValid) { lblResult.Text = ""; return; }
 
             string accountNo = Session["AccountNo"].ToString();
-            decimal amount;
 
-            if (!decimal.TryParse(txtAmount.Text, out amount))
+            // Validate PIN
+            string pin = pin1.Text.Trim() + pin2.Text.Trim() + pin3.Text.Trim() + pin4.Text.Trim();
+            if (pin.Length != 4 || !System.Text.RegularExpressions.Regex.IsMatch(pin, @"^\d{4}$"))
             {
-                lblResult.Text = "<span style='color:#e74c3c;'>Invalid amount format entered.</span>";
+                lblResult.Text = "<span style='color:#e74c3c;'>❌ Please enter your 4-digit Transaction PIN.</span>";
                 return;
             }
 
-            if (amount < 100.00m)
+            string hashedPIN = HashPassword(pin);
+
+            decimal amount;
+            if (!decimal.TryParse(txtAmount.Text, out amount))
             {
-                lblResult.Text = "<span style='color:#e74c3c;'>Minimum required deposit amount is ₱100.00.</span>";
+                lblResult.Text = "<span style='color:#e74c3c;'>Invalid amount format entered.</span>";
                 return;
             }
 
@@ -81,7 +82,19 @@ namespace DemoProject
             {
                 db.Open();
 
-                // Concurrency Guard: IsolationLevel.Serializable completely locks row modifications
+                // Verify PIN
+                using (var cmd = db.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT COUNT(*) FROM USER_TBL WHERE ACCOUNT_NO = @acct AND PIN_HASH = @pin";
+                    cmd.Parameters.AddWithValue("@acct", accountNo);
+                    cmd.Parameters.AddWithValue("@pin", hashedPIN);
+                    if ((int)cmd.ExecuteScalar() == 0)
+                    {
+                        lblResult.Text = "<span style='color:#e74c3c;'>❌ Incorrect PIN. Transaction cancelled.</span>";
+                        return;
+                    }
+                }
+
                 using (SqlTransaction transaction = db.BeginTransaction(IsolationLevel.Serializable))
                 {
                     try
@@ -91,15 +104,13 @@ namespace DemoProject
 
                         if (currentBalance + amount > maxWalletCapacity)
                         {
-                            lblResult.Text = "<span style='color:#e74c3c;'>Total system wallet balance cannot exceed ₱" + maxWalletCapacity.ToString("N2") + ". " +
-                                "Your current balance is ₱" + currentBalance.ToString("N2") + ".</span>";
                             transaction.Rollback();
+                            lblResult.Text = "<span style='color:#e74c3c;'>Total balance cannot exceed ₱" + maxWalletCapacity.ToString("N2") + ".</span>";
                             return;
                         }
 
                         decimal balanceAfter = currentBalance + amount;
 
-                        // Insert ledger row record entry
                         using (var cmd = db.CreateCommand())
                         {
                             cmd.Transaction = transaction;
@@ -109,11 +120,9 @@ namespace DemoProject
                             cmd.Parameters.AddWithValue("@acct", accountNo);
                             cmd.Parameters.AddWithValue("@amount", amount);
                             cmd.Parameters.AddWithValue("@balAfter", balanceAfter);
-
                             cmd.ExecuteNonQuery();
                         }
 
-                        // Retrieve the assigned primary key sequence identifier for transaction receipt context mapping
                         using (var cmd2 = db.CreateCommand())
                         {
                             cmd2.Transaction = transaction;
@@ -125,10 +134,10 @@ namespace DemoProject
                         transaction.Commit();
                         Response.Redirect("Receipt.aspx");
                     }
-                    catch (Exception)
+                    catch
                     {
                         transaction.Rollback();
-                        lblResult.Text = "<span style='color:#e74c3c;'>A temporary processing engine collision occurred. Please retry your deposit.</span>";
+                        lblResult.Text = "<span style='color:#e74c3c;'>A processing error occurred. Please retry.</span>";
                     }
                 }
             }
@@ -137,8 +146,8 @@ namespace DemoProject
         protected void btnClear_Click(object sender, EventArgs e)
         {
             txtAmount.Text = "";
+            pin1.Text = pin2.Text = pin3.Text = pin4.Text = "";
             lblResult.Text = "";
-            // Clear the visible placeholder value layout block on click
             ClientScript.RegisterStartupScript(this.GetType(), "ClearDisplay", "document.getElementById('txtAmountDisplay').value = '';", true);
         }
     }

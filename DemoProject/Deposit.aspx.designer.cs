@@ -78,6 +78,42 @@ namespace DemoProject
         protected global::System.Web.UI.WebControls.RangeValidator rngAmount;
 
         /// <summary>
+        /// pin1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox pin1;
+
+        /// <summary>
+        /// pin2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox pin2;
+
+        /// <summary>
+        /// pin3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox pin3;
+
+        /// <summary>
+        /// pin4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox pin4;
+
+        /// <summary>
         /// btnDeposit control.
         /// </summary>
         /// <remarks>

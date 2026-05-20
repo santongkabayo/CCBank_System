@@ -6,8 +6,8 @@
 <head runat="server">
     <title>CCBank - My Sent or Received</title>
     <style>
-        :root { --bg:#f5f0e8; --card:#fff; --text:#2c3e50; --subtext:#666; --border:#e0d0c0; --accent:#e67e22; --input-bg:#fff; --input-border:#ddd; --label:#555; --muted:#999; --hover:#fff8f0; }
-        body.dark { --bg:#0f0f1a; --card:#1e1e30; --text:#f0f0f0; --subtext:#aaa; --border:#333; --accent:#f5b942; --input-bg:#2a2a3e; --input-border:#444; --label:#ccc; --hover:#2a2a3e; }
+        :root { --bg:#f5f0e8; --card:#fff; --text:#2c3e50; --subtext:#666; --border:#e0d0c0; --accent:#e67e22; --input-bg:#fff; --input-border:#ddd; --label:#555; --muted:#999; --hover:#fff8f0; --shadow: rgba(0,0,0,0.08); }
+        body.dark { --bg:#0f0f1a; --card:#1e1e30; --text:#f0f0f0; --subtext:#aaa; --border:#333; --accent:#f5b942; --input-bg:#2a2a3e; --input-border:#444; --label:#ccc; --hover:#2a2a3e; --shadow: rgba(0,0,0,0.3); }
         * { box-sizing:border-box; margin:0; padding:0; transition:background 0.3s,color 0.3s; }
         body { font-family:Arial,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
         
@@ -110,9 +110,135 @@
         .back-link { margin-top:16px; text-align:center; font-size:13px; }
         .back-link a { color:var(--accent); text-decoration:none; font-weight:bold; }
         .error { color:#e74c3c; font-size:13px; }
+
+                                        /* ── ANIMATIONS ── */
+@keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── PAGE LOADER ── */
+.page-loader {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.4s;
+}
+.page-loader.hidden { opacity: 0; pointer-events: none; }
+.loader-spinner {
+    width: 48px; height: 48px;
+    border: 4px solid var(--border);
+    border-top-color: #f0a070;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* ── NAVBAR ANIMATION ── */
+.navbar { animation: slideDown 0.5s ease; }
+.navbar-brand img { transition: transform 0.3s; }
+.navbar-brand img:hover { transform: rotate(-5deg) scale(1.1); }
+.navbar-links a {
+    transition: background 0.2s, transform 0.2s;
+    position: relative;
+}
+.navbar-links a::after {
+    content: '';
+    position: absolute; bottom: 4px; left: 50%; right: 50%;
+    height: 2px; background: white; border-radius: 2px;
+    transition: left 0.2s, right 0.2s;
+}
+.navbar-links a:hover::after { left: 12px; right: 12px; }
+.navbar-links a:hover { transform: translateY(-1px); }
+.navbar-links .btn-logout {
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(231,76,60,0.3);
+}
+.navbar-links .btn-logout:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(231,76,60,0.4);
+}
+.theme-btn { transition: background 0.2s, transform 0.3s; }
+.theme-btn:hover { background: rgba(255,255,255,0.3); transform: rotate(20deg); }
+
+/* ── MAIN CONTENT ANIMATION ── */
+.main { animation: fadeInUp 0.6s ease; }
+.page-card { animation: fadeInUp 0.5s ease 0.1s both; }
+
+/* ── CARD HOVER ── */
+.card {
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px var(--shadow);
+}
+.card-icon { transition: transform 0.3s; }
+.card:hover .card-icon { transform: scale(1.15) rotate(-5deg); }
+
+/* ── BUTTON HOVER ── */
+.btn-primary {
+    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.btn-primary:hover {
+    opacity: 0.88;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(240,160,112,0.4);
+}
+.btn-primary:active { transform: scale(0.97); }
+.btn-secondary { transition: opacity 0.2s, transform 0.2s; }
+.btn-secondary:hover { opacity: 0.8; transform: translateY(-1px); }
+
+/* ── TABLE ROW HOVER ── */
+table tr { transition: background 0.15s; }
+table td { transition: background 0.15s; }
+
+/* ── INFO BOX HOVER ── */
+.info-box { transition: transform 0.25s, box-shadow 0.25s; }
+.info-box:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--shadow); }
+.info-table tr { transition: background 0.2s; }
+.info-table tr:hover td { background: var(--hover); }
+
+/* ── INPUT FOCUS ── */
+input[type="text"], input[type="password"], input[type="email"] {
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+    transform: scale(1.01);
+}
+
+/* ── RESULT LABEL ANIMATION ── */
+.result { transition: all 0.3s ease; }
+
+/* ── ACTION BUTTONS ── */
+.action-btn {
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative; overflow: hidden;
+}
+.action-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--hover);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.action-btn:hover::before { opacity: 1; }
+.action-btn:hover { transform: translateY(-4px) scale(1.03); }
+.action-btn:active { transform: scale(0.97); }
+.action-btn .icon { transition: transform 0.3s; position: relative; }
+.action-btn:hover .icon { transform: scale(1.2) rotate(-8deg); }
+
     </style>
 </head>
 <body>
+    <div class="page-loader" id="pageLoader">
+    <div class="loader-spinner"></div>
+</div>
     <nav class="navbar">
         <div class="navbar-brand">
             <img src="CC bank.png" alt="CCBank" />
@@ -122,6 +248,8 @@
             <a href="Dashboard.aspx">🏠 Home</a>
             <a href="StatementOfAccount.aspx">📄 Statement</a>
             <a href="MyDepositsWithdrawals.aspx">📊 Reports</a>
+            <a href="ChangePassword.aspx">🔑 Change Password</a>
+<a href="ChangePIN.aspx">🔐 Change PIN</a>
             <a href="Logout.aspx" class="btn-logout">🚪 Logout</a>
             <button class="theme-btn" onclick="toggleTheme()">🌑</button>
         </div>
@@ -185,17 +313,42 @@
     </div>
     </form>
 
-    <script>
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-            var btn = document.querySelector('.theme-btn');
-            btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌑';
-            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-        }
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark');
-            document.querySelector('.theme-btn').textContent = '☀️';
-        }
-    </script>
+        <script>
+            // Hide page loader
+            window.addEventListener('load', function () {
+                var loader = document.getElementById('pageLoader');
+                loader.classList.add('hidden');
+                setTimeout(function () { loader.style.display = 'none'; }, 400);
+            });
+
+            // Theme toggle
+            function toggleTheme() {
+                document.body.classList.toggle('dark');
+                var btn = document.querySelector('.theme-btn');
+                btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌑';
+                localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+            }
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark');
+                document.querySelector('.theme-btn').textContent = '☀️';
+            }
+
+            // Smooth page navigation with fade-out
+            document.querySelectorAll('a[href]').forEach(function (link) {
+                if (link.href && !link.href.includes('#') && link.target !== '_blank') {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var href = this.href;
+                        var main = document.querySelector('.main') || document.querySelector('.page-card') || document.querySelector('.container');
+                        if (main) {
+                            main.style.opacity = '0';
+                            main.style.transform = 'translateY(-10px)';
+                            main.style.transition = 'opacity 0.3s, transform 0.3s';
+                        }
+                        setTimeout(function () { window.location.href = href; }, 280);
+                    });
+                }
+            });
+</script>
 </body>
 </html>

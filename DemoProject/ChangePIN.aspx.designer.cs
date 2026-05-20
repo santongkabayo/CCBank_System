@@ -11,7 +11,7 @@ namespace DemoProject
 {
 
 
-    public partial class Withdraw
+    public partial class ChangePIN
     {
 
         /// <summary>
@@ -24,15 +24,6 @@ namespace DemoProject
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// ValidationSummary1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
-
-        /// <summary>
         /// lblAccountNo control.
         /// </summary>
         /// <remarks>
@@ -42,85 +33,121 @@ namespace DemoProject
         protected global::System.Web.UI.WebControls.Label lblAccountNo;
 
         /// <summary>
-        /// lblBalance control.
+        /// curPin1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBalance;
+        protected global::System.Web.UI.WebControls.TextBox curPin1;
 
         /// <summary>
-        /// txtAmount control.
+        /// curPin2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAmount;
+        protected global::System.Web.UI.WebControls.TextBox curPin2;
 
         /// <summary>
-        /// rfvAmount control.
+        /// curPin3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAmount;
+        protected global::System.Web.UI.WebControls.TextBox curPin3;
 
         /// <summary>
-        /// rngAmount control.
+        /// curPin4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator rngAmount;
+        protected global::System.Web.UI.WebControls.TextBox curPin4;
 
         /// <summary>
-        /// pin1 control.
+        /// newPin1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pin1;
+        protected global::System.Web.UI.WebControls.TextBox newPin1;
 
         /// <summary>
-        /// pin2 control.
+        /// newPin2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pin2;
+        protected global::System.Web.UI.WebControls.TextBox newPin2;
 
         /// <summary>
-        /// pin3 control.
+        /// newPin3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pin3;
+        protected global::System.Web.UI.WebControls.TextBox newPin3;
 
         /// <summary>
-        /// pin4 control.
+        /// newPin4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pin4;
+        protected global::System.Web.UI.WebControls.TextBox newPin4;
 
         /// <summary>
-        /// btnWithdraw control.
+        /// conPin1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnWithdraw;
+        protected global::System.Web.UI.WebControls.TextBox conPin1;
+
+        /// <summary>
+        /// conPin2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox conPin2;
+
+        /// <summary>
+        /// conPin3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox conPin3;
+
+        /// <summary>
+        /// conPin4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox conPin4;
+
+        /// <summary>
+        /// btnChange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnChange;
 
         /// <summary>
         /// btnClear control.

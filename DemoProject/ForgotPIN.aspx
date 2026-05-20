@@ -1,12 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ForgotPassword.aspx.cs" Inherits="DemoProject.ForgotPassword" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ForgotPIN.aspx.cs" Inherits="DemoProject.ForgotPIN" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-     <title>CC Bank - Forgot Password</title>
+    <title>CC Bank - Forgot PIN</title>
     <style>
-        :root { --bg:linear-gradient(135deg,#f4a58a 0%,#f0a070 25%,#f5b942 60%,#f9c85a 100%); --card:rgba(255,255,255,0.95); --text:#2c3e50; --subtext:#666; --input-bg:#fff; --input-border:#ddd; --label:#555; --result-bg:#fff8f0; --link:#e67e22; --shadow: rgba(0,0,0,0.08);}
+                :root { --bg:linear-gradient(135deg,#f4a58a 0%,#f0a070 25%,#f5b942 60%,#f9c85a 100%); --card:rgba(255,255,255,0.95); --text:#2c3e50; --subtext:#666; --input-bg:#fff; --input-border:#ddd; --label:#555; --result-bg:#fff8f0; --link:#e67e22; --shadow: rgba(0,0,0,0.08);}
         body.dark { --bg:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); --card:rgba(30,30,50,0.97); --text:#f0f0f0; --subtext:#aaa; --input-bg:#2a2a3e; --input-border:#444; --label:#ccc; --result-bg:#2a2a3e; --link:#f5b942; --shadow: rgba(0,0,0,0.3);  }
         * { box-sizing:border-box; margin:0; padding:0; transition:background 0.3s,color 0.3s; }
         body { font-family:Arial,sans-serif; min-height:100vh; display:flex; justify-content:center; align-items:center; background:var(--bg); }
@@ -160,21 +160,16 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
     <div class="page-loader" id="pageLoader">
     <div class="loader-spinner"></div>
 </div>
+
     <button class="theme-toggle" onclick="toggleTheme()">🌑</button>
     <form id="form1" runat="server">
     <div class="container">
         <div class="logo-area">
             <img src="CC bank.png" alt="CCBank" />
-            <h1>Forgot Password</h1>
-            <p>Enter your registered email to recover your account</p>
+            <h1>Forgot PIN</h1>
+            <p>Enter your registered email to reset your Transaction PIN</p>
         </div>
         <hr class="divider" />
-
-        <div class="steps">
-            <div class="step active">1</div>
-            <div class="step">2</div>
-            <div class="step">3</div>
-        </div>
 
         <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" CssClass="error" HeaderText="Please correct the following errors:" />
 
@@ -185,11 +180,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
             <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Please enter a valid email." ForeColor="Red" />
         </div>
 
-        <asp:Button ID="btnNext" runat="server" Text="🔐 Answer Security Question" OnClick="btnNext_Click" CssClass="btn-primary" />
-
-        <div class="or-divider">— or —</div>
-
-        <asp:Button ID="btnSendEmail" runat="server" Text="📧 Send Reset Link to Email" OnClick="btnSendEmail_Click" CssClass="btn-secondary" />
+        <asp:Button ID="btnSend" runat="server" Text="📧 Send PIN Reset Link" OnClick="btnSend_Click" CssClass="btn-primary" />
 
         <div class="result">
             <asp:Label ID="lblResult" runat="server"></asp:Label>
@@ -200,42 +191,42 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
         </div>
     </div>
     </form>
-    <script>
-        // Hide page loader
-        window.addEventListener('load', function () {
-            var loader = document.getElementById('pageLoader');
-            loader.classList.add('hidden');
-            setTimeout(function () { loader.style.display = 'none'; }, 400);
-        });
+        <script>
+            // Hide page loader
+            window.addEventListener('load', function () {
+                var loader = document.getElementById('pageLoader');
+                loader.classList.add('hidden');
+                setTimeout(function () { loader.style.display = 'none'; }, 400);
+            });
 
-        // Theme toggle
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-            var btn = document.querySelector('.theme-toggle');  // ← change this
-            btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌑';
-            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-        }
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark');
-            document.querySelector('.theme-toggle').textContent = '☀️';  // ← and this
-        }
-
-        // Smooth page navigation with fade-out
-        document.querySelectorAll('a[href]').forEach(function (link) {
-            if (link.href && !link.href.includes('#') && link.target !== '_blank') {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    var href = this.href;
-                    var main = document.querySelector('.main') || document.querySelector('.page-card') || document.querySelector('.container');
-                    if (main) {
-                        main.style.opacity = '0';
-                        main.style.transform = 'translateY(-10px)';
-                        main.style.transition = 'opacity 0.3s, transform 0.3s';
-                    }
-                    setTimeout(function () { window.location.href = href; }, 280);
-                });
+            // Theme toggle
+            function toggleTheme() {
+                document.body.classList.toggle('dark');
+                var btn = document.querySelector('.theme-toggle');  // ← change this
+                btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌑';
+                localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
             }
-        });
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark');
+                document.querySelector('.theme-toggle').textContent = '☀️';  // ← and this
+            }
+
+            // Smooth page navigation with fade-out
+            document.querySelectorAll('a[href]').forEach(function (link) {
+                if (link.href && !link.href.includes('#') && link.target !== '_blank') {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var href = this.href;
+                        var main = document.querySelector('.main') || document.querySelector('.page-card') || document.querySelector('.container');
+                        if (main) {
+                            main.style.opacity = '0';
+                            main.style.transform = 'translateY(-10px)';
+                            main.style.transition = 'opacity 0.3s, transform 0.3s';
+                        }
+                        setTimeout(function () { window.location.href = href; }, 280);
+                    });
+                }
+            });
 </script>
 </body>
 </html>

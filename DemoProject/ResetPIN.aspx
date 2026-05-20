@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ResetPassword.aspx.cs" Inherits="DemoProject.ResetPassword" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ResetPIN.aspx.cs" Inherits="DemoProject.ResetPIN" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-   <title>CCBank - Reset Password</title>
+    <title>CC Bank - Reset PIN</title>
     <style>
         :root { 
             --bg: linear-gradient(135deg,#f4a58a 0%,#f0a070 25%,#f5b942 60%,#f9c85a 100%); 
@@ -53,25 +53,18 @@
         
         .divider { border:none; border-top:1px solid var(--input-border); margin:14px 0; }
         
-        .steps { display:flex; justify-content:center; gap:8px; margin-bottom:20px; }
-        .step { width:28px; height:28px; border-radius:50%; background:#ddd; color:#999; font-size:12px; font-weight:bold; display:flex; align-items:center; justify-content:center; }
-        .step.active { background:linear-gradient(135deg,#f0a070,#f5b942); color:white; }
-        .step.done { background:#27ae60; color:white; }
-        
         .row { margin-bottom:14px; }
         .label { display:block; font-weight:bold; color:var(--label); margin-bottom:5px; font-size:13px; }
         
-        .input-wrap { position:relative; }
-        .input-wrap input[type="text"], .input-wrap input[type="password"] { 
-            width:100%; padding:11px 40px 11px 14px; border:1.5px solid var(--input-border); border-radius:8px; font-size:14px; background:var(--input-bg); color:var(--text); 
+        .pin-inputs { display:flex; gap:10px; justify-content:center; margin-top:12px; }
+        .pin-inputs .pin-box { 
+            width:60px; height:60px; text-align:center; font-size:22px; font-weight:bold; border:1.5px solid var(--input-border); border-radius:10px; background:var(--input-bg); color:var(--text); 
             transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
         }
-        .input-wrap input[type="text"]:focus, .input-wrap input[type="password"]:focus { border-color:#f0a070; outline:none; transform: scale(1.01); }
-        
-        .toggle-pw { position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; font-size:16px; background:none; border:none; color:#aaa; }
+        .pin-inputs .pin-box:focus { border-color:#f0a070; outline:none; transform: scale(1.05); box-shadow:0 0 0 3px rgba(240,160,112,0.15); }
         
         .btn-primary { 
-            width:100%; background:linear-gradient(135deg,#f0a070,#f5b942); color:white; padding:12px; border:none; border-radius:8px; cursor:pointer; font-size:15px; font-weight:bold; margin-top:8px; 
+            width:100%; background:linear-gradient(135deg,#f0a070,#f5b942); color:white; padding:12px; border:none; border-radius:8px; cursor:pointer; font-size:15px; font-weight:bold; margin-top:18px; 
             transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
         }
         .btn-primary:hover { opacity:0.88; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(240,160,112,0.4); }
@@ -120,41 +113,21 @@
     <div class="container">
         <div class="logo-area">
             <img src="CC bank.png" alt="CC Bank" />
-            <h1>Reset Password</h1>
+            <h1>Reset Transaction PIN</h1>
         </div>
         <hr class="divider" />
 
-        <div class="steps">
-            <div class="step done">✓</div>
-            <div class="step done">✓</div>
-            <div class="step active">3</div>
-        </div>
-
-        <asp:ValidationSummary ID="ValidationSummary1" runat="server"
-            ForeColor="Red" CssClass="error" HeaderText="Please correct the following errors:" />
-
         <div class="row">
-            <span class="label">New Password</span>
-            <div class="input-wrap">
-                <asp:TextBox ID="txtNewPassword" runat="server" TextMode="Password" MaxLength="50"></asp:TextBox>
-                <button type="button" class="toggle-pw" onclick="togglePw('<%= txtNewPassword.ClientID %>', this)">👁️</button>
+            <span class="label" style="text-align:center;display:block;">Enter New 4-Digit PIN</span>
+            <div class="pin-inputs">
+                <asp:TextBox ID="pin1" runat="server" MaxLength="1" CssClass="pin-box" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="pin2" runat="server" MaxLength="1" CssClass="pin-box" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="pin3" runat="server" MaxLength="1" CssClass="pin-box" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="pin4" runat="server" MaxLength="1" CssClass="pin-box" TextMode="Password"></asp:TextBox>
             </div>
-            <asp:RequiredFieldValidator ID="rfvNew" runat="server" ControlToValidate="txtNewPassword" ErrorMessage="New password is required." ForeColor="Red" />
-            <asp:RegularExpressionValidator ID="revNew" runat="server" ControlToValidate="txtNewPassword" ValidationExpression="^.{6,}$" ErrorMessage="Password must be at least 6 characters." ForeColor="Red" />
         </div>
 
-        <div class="row">
-            <span class="label">Confirm New Password</span>
-            <div class="input-wrap">
-                <asp:TextBox ID="txtConfirm" runat="server" TextMode="Password" MaxLength="50"></asp:TextBox>
-                <button type="button" class="toggle-pw" onclick="togglePw('<%= txtConfirm.ClientID %>', this)">👁️</button>
-            </div>
-            <asp:RequiredFieldValidator ID="rfvConfirm" runat="server" ControlToValidate="txtConfirm" ErrorMessage="Please confirm your password." ForeColor="Red" />
-            <asp:CompareValidator ID="cvPw" runat="server" ControlToValidate="txtConfirm" ControlToCompare="txtNewPassword" ErrorMessage="Passwords do not match." ForeColor="Red" />
-        </div>
-
-        <asp:Button ID="btnReset" runat="server" Text="🔒 Reset Password"
-            OnClick="btnReset_Click" CssClass="btn-primary" />
+        <asp:Button ID="btnReset" runat="server" Text="🔒 Reset PIN" OnClick="btnReset_Click" CssClass="btn-primary" />
 
         <div class="result">
             <asp:Label ID="lblResult" runat="server"></asp:Label>
@@ -174,16 +147,39 @@
             document.querySelector('.theme-toggle').textContent = '☀️';
         }
 
-        function togglePw(id, btn) {
-            var input = document.getElementById(id);
-            input.type = input.type === 'password' ? 'text' : 'password';
-            btn.textContent = input.type === 'password' ? '👁️' : '🙈';
-        }
-
         window.addEventListener('load', function () {
             var loader = document.getElementById('pageLoader');
             loader.classList.add('hidden');
             setTimeout(function () { loader.style.display = 'none'; }, 400);
+
+            // Focus on the first entry box when the page opens up
+            var firstBox = document.getElementById('<%= pin1.ClientID %>');
+            if (firstBox) firstBox.focus();
+        });
+
+        // Safe client side DOM lookup for ASP components
+        var elements = [
+            document.getElementById('<%= pin1.ClientID %>'),
+            document.getElementById('<%= pin2.ClientID %>'),
+            document.getElementById('<%= pin3.ClientID %>'),
+            document.getElementById('<%= pin4.ClientID %>')
+        ];
+
+        elements.forEach(function (el, i, arr) {
+            if (!el) return;
+
+            el.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, ''); // Clear out non numeric values
+                if (this.value && i < arr.length - 1) {
+                    if (arr[i + 1]) arr[i + 1].focus();
+                }
+            });
+
+            el.addEventListener('keydown', function (e) {
+                if (e.key === 'Backspace' && !this.value && i > 0) {
+                    if (arr[i - 1]) arr[i - 1].focus();
+                }
+            });
         });
 
         document.querySelectorAll('a[href]').forEach(function (link) {

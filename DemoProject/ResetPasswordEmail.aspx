@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ResetPassword.aspx.cs" Inherits="DemoProject.ResetPassword" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ResetPasswordEmail.aspx.cs" Inherits="DemoProject.ResetPasswordEmail" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-   <title>CCBank - Reset Password</title>
+    <title>CC Bank - Reset Password</title>
     <style>
         :root { 
             --bg: linear-gradient(135deg,#f4a58a 0%,#f0a070 25%,#f5b942 60%,#f9c85a 100%); 
@@ -52,11 +52,6 @@
         .logo-area h1 { color:var(--text); font-size:20px; margin-top:8px; }
         
         .divider { border:none; border-top:1px solid var(--input-border); margin:14px 0; }
-        
-        .steps { display:flex; justify-content:center; gap:8px; margin-bottom:20px; }
-        .step { width:28px; height:28px; border-radius:50%; background:#ddd; color:#999; font-size:12px; font-weight:bold; display:flex; align-items:center; justify-content:center; }
-        .step.active { background:linear-gradient(135deg,#f0a070,#f5b942); color:white; }
-        .step.done { background:#27ae60; color:white; }
         
         .row { margin-bottom:14px; }
         .label { display:block; font-weight:bold; color:var(--label); margin-bottom:5px; font-size:13px; }
@@ -124,14 +119,7 @@
         </div>
         <hr class="divider" />
 
-        <div class="steps">
-            <div class="step done">✓</div>
-            <div class="step done">✓</div>
-            <div class="step active">3</div>
-        </div>
-
-        <asp:ValidationSummary ID="ValidationSummary1" runat="server"
-            ForeColor="Red" CssClass="error" HeaderText="Please correct the following errors:" />
+        <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" CssClass="error" HeaderText="Please correct the following errors:" />
 
         <div class="row">
             <span class="label">New Password</span>
@@ -140,7 +128,7 @@
                 <button type="button" class="toggle-pw" onclick="togglePw('<%= txtNewPassword.ClientID %>', this)">👁️</button>
             </div>
             <asp:RequiredFieldValidator ID="rfvNew" runat="server" ControlToValidate="txtNewPassword" ErrorMessage="New password is required." ForeColor="Red" />
-            <asp:RegularExpressionValidator ID="revNew" runat="server" ControlToValidate="txtNewPassword" ValidationExpression="^.{6,}$" ErrorMessage="Password must be at least 6 characters." ForeColor="Red" />
+            <asp:RegularExpressionValidator ID="revNew" runat="server" ControlToValidate="txtNewPassword" ValidationExpression="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,50}$" ErrorMessage="Password must be 6+ chars with uppercase, lowercase, and number." ForeColor="Red" />
         </div>
 
         <div class="row">
@@ -153,8 +141,7 @@
             <asp:CompareValidator ID="cvPw" runat="server" ControlToValidate="txtConfirm" ControlToCompare="txtNewPassword" ErrorMessage="Passwords do not match." ForeColor="Red" />
         </div>
 
-        <asp:Button ID="btnReset" runat="server" Text="🔒 Reset Password"
-            OnClick="btnReset_Click" CssClass="btn-primary" />
+        <asp:Button ID="btnReset" runat="server" Text="🔒 Reset Password" OnClick="btnReset_Click" CssClass="btn-primary" />
 
         <div class="result">
             <asp:Label ID="lblResult" runat="server"></asp:Label>
