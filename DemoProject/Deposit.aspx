@@ -31,8 +31,8 @@
         .divider { border:none; border-top:1px solid var(--border); margin:16px 0; }
         .row { margin-bottom:14px; position:relative; }
         .label { display:block; font-weight:bold; color:var(--label); margin-bottom:5px; font-size:13px; }
-        input[type="text"] { width:100%; padding:10px 14px; border:1.5px solid var(--input-border); border-radius:8px; font-size:14px; background:var(--input-bg); color:var(--text); }
-        input[type="text"]:focus { border-color:#f0a070; outline:none; box-shadow:0 0 0 3px rgba(240,160,112,0.15); }
+        input[type="text"], input[type="password"] { width:100%; padding:10px 14px; border:1.5px solid var(--input-border); border-radius:8px; font-size:14px; background:var(--input-bg); color:var(--text); }
+        input[type="text"]:focus, input[type="password"]:focus { border-color:#f0a070; outline:none; box-shadow:0 0 0 3px rgba(240,160,112,0.15); }
         .hint { font-size:11px; color:var(--muted); margin-top:4px; margin-bottom:4px; }
         .pin-inputs { display:flex; gap:10px; justify-content:center; margin-top:6px; }
         .pin-inputs input { width:60px; height:60px; text-align:center; font-size:22px; font-weight:bold; border:1.5px solid var(--input-border); border-radius:10px; background:var(--input-bg); color:var(--text); }
@@ -48,134 +48,134 @@
         .hidden-validator-input { opacity:0 !important; position:absolute !important; z-index:-1 !important; height:0 !important; width:0 !important; padding:0 !important; margin:0 !important; border:none !important; }
         .pin-section { background:var(--hover); border:1px solid var(--border); border-radius:10px; padding:16px; margin-bottom:14px; text-align:center; }
         .pin-section .pin-label { font-weight:bold; color:var(--label); font-size:13px; margin-bottom:10px; display:block; }
-                        /* ── ANIMATIONS ── */
-@keyframes slideDown {
-    from { transform: translateY(-100%); opacity: 0; }
-    to   { transform: translateY(0);     opacity: 1; }
-}
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* ── ANIMATIONS ── */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to   { transform: translateY(0);     opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── PAGE LOADER ── */
-.page-loader {
-    position: fixed; inset: 0;
-    background: var(--bg);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 9999;
-    transition: opacity 0.4s;
-}
-.page-loader.hidden { opacity: 0; pointer-events: none; }
-.loader-spinner {
-    width: 48px; height: 48px;
-    border: 4px solid var(--border);
-    border-top-color: #f0a070;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
+        /* ── PAGE LOADER ── */
+        .page-loader {
+            position: fixed; inset: 0;
+            background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.4s;
+        }
+        .page-loader.hidden { opacity: 0; pointer-events: none; }
+        .loader-spinner {
+            width: 48px; height: 48px;
+            border: 4px solid var(--border);
+            border-top-color: #f0a070;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
 
-/* ── NAVBAR ANIMATION ── */
-.navbar { animation: slideDown 0.5s ease; }
-.navbar-brand img { transition: transform 0.3s; }
-.navbar-brand img:hover { transform: rotate(-5deg) scale(1.1); }
-.navbar-links a {
-    transition: background 0.2s, transform 0.2s;
-    position: relative;
-}
-.navbar-links a::after {
-    content: '';
-    position: absolute; bottom: 4px; left: 50%; right: 50%;
-    height: 2px; background: white; border-radius: 2px;
-    transition: left 0.2s, right 0.2s;
-}
-.navbar-links a:hover::after { left: 12px; right: 12px; }
-.navbar-links a:hover { transform: translateY(-1px); }
-.navbar-links .btn-logout {
-    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 8px rgba(231,76,60,0.3);
-}
-.navbar-links .btn-logout:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(231,76,60,0.4);
-}
-.theme-btn { transition: background 0.2s, transform 0.3s; }
-.theme-btn:hover { background: rgba(255,255,255,0.3); transform: rotate(20deg); }
+        /* ── NAVBAR ANIMATION ── */
+        .navbar { animation: slideDown 0.5s ease; }
+        .navbar-brand img { transition: transform 0.3s; }
+        .navbar-brand img:hover { transform: rotate(-5deg) scale(1.1); }
+        .navbar-links a {
+            transition: background 0.2s, transform 0.2s;
+            position: relative;
+        }
+        .navbar-links a::after {
+            content: '';
+            position: absolute; bottom: 4px; left: 50%; right: 50%;
+            height: 2px; background: white; border-radius: 2px;
+            transition: left 0.2s, right 0.2s;
+        }
+        .navbar-links a:hover::after { left: 12px; right: 12px; }
+        .navbar-links a:hover { transform: translateY(-1px); }
+        .navbar-links .btn-logout {
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(231,76,60,0.3);
+        }
+        .navbar-links .btn-logout:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(231,76,60,0.4);
+        }
+        .theme-btn { transition: background 0.2s, transform 0.3s; }
+        .theme-btn:hover { background: rgba(255,255,255,0.3); transform: rotate(20deg); }
 
-/* ── MAIN CONTENT ANIMATION ── */
-.main { animation: fadeInUp 0.6s ease; }
-.page-card { animation: fadeInUp 0.5s ease 0.1s both; }
+        /* ── MAIN CONTENT ANIMATION ── */
+        .main { animation: fadeInUp 0.6s ease; }
+        .page-card { animation: fadeInUp 0.5s ease 0.1s both; }
 
-/* ── CARD HOVER ── */
-.card {
-    transition: transform 0.25s, box-shadow 0.25s;
-}
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px var(--shadow);
-}
-.card-icon { transition: transform 0.3s; }
-.card:hover .card-icon { transform: scale(1.15) rotate(-5deg); }
+        /* ── CARD HOVER ── */
+        .card {
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+        .card-icon { transition: transform 0.3s; }
+        .card:hover .card-icon { transform: scale(1.15) rotate(-5deg); }
 
-/* ── BUTTON HOVER ── */
-.btn-primary {
-    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-}
-.btn-primary:hover {
-    opacity: 0.88;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(240,160,112,0.4);
-}
-.btn-primary:active { transform: scale(0.97); }
-.btn-secondary { transition: opacity 0.2s, transform 0.2s; }
-.btn-secondary:hover { opacity: 0.8; transform: translateY(-1px); }
+        /* ── BUTTON HOVER ── */
+        .btn-primary {
+            transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover {
+            opacity: 0.88;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(240,160,112,0.4);
+        }
+        .btn-primary:active { transform: scale(0.97); }
+        .btn-secondary { transition: opacity 0.2s, transform 0.2s; }
+        .btn-secondary:hover { opacity: 0.8; transform: translateY(-1px); }
 
-/* ── TABLE ROW HOVER ── */
-table tr { transition: background 0.15s; }
-table td { transition: background 0.15s; }
+        /* ── TABLE ROW HOVER ── */
+        table tr { transition: background 0.15s; }
+        table td { transition: background 0.15s; }
 
-/* ── INFO BOX HOVER ── */
-.info-box { transition: transform 0.25s, box-shadow 0.25s; }
-.info-box:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--shadow); }
-.info-table tr { transition: background 0.2s; }
-.info-table tr:hover td { background: var(--hover); }
+        /* ── INFO BOX HOVER ── */
+        .info-box { transition: transform 0.25s, box-shadow 0.25s; }
+        .info-box:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--shadow); }
+        .info-table tr { transition: background 0.2s; }
+        .info-table tr:hover td { background: var(--hover); }
 
-/* ── INPUT FOCUS ── */
-input[type="text"], input[type="password"], input[type="email"] {
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-}
-input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
-    transform: scale(1.01);
-}
+        /* ── INPUT FOCUS ── */
+        input[type="text"], input[type="password"], input[type="email"] {
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+            transform: scale(1.01);
+        }
 
-/* ── RESULT LABEL ANIMATION ── */
-.result { transition: all 0.3s ease; }
+        /* ── RESULT LABEL ANIMATION ── */
+        .result { transition: all 0.3s ease; }
 
-/* ── ACTION BUTTONS ── */
-.action-btn {
-    transition: transform 0.25s, box-shadow 0.25s;
-    position: relative; overflow: hidden;
-}
-.action-btn::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: var(--hover);
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-.action-btn:hover::before { opacity: 1; }
-.action-btn:hover { transform: translateY(-4px) scale(1.03); }
-.action-btn:active { transform: scale(0.97); }
-.action-btn .icon { transition: transform 0.3s; position: relative; }
-.action-btn:hover .icon { transform: scale(1.2) rotate(-8deg); }
-
+        /* ── ACTION BUTTONS ── */
+        .action-btn {
+            transition: transform 0.25s, box-shadow 0.25s;
+            position: relative; overflow: hidden;
+        }
+        .action-btn::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: var(--hover);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .action-btn:hover::before { opacity: 1; }
+        .action-btn:hover { transform: translateY(-4px) scale(1.03); }
+        .action-btn:active { transform: scale(0.97); }
+        .action-btn .icon { transition: transform 0.3s; position: relative; }
+        .action-btn:hover .icon { transform: scale(1.2) rotate(-8deg); }
     </style>
 </head>
 <body>
     <div class="page-loader" id="pageLoader">
-    <div class="loader-spinner"></div>
-</div>
+        <div class="loader-spinner"></div>
+    </div>
     <nav class="navbar">
         <div class="navbar-brand">
             <img src="CC bank.png" alt="CCBank" />
@@ -223,10 +223,10 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
             <div class="pin-section">
                 <span class="pin-label">🔐 Enter Transaction PIN to Confirm</span>
                 <div class="pin-inputs">
-                    <asp:TextBox ID="pin1" runat="server" MaxLength="1" CssClass="dep-pin"></asp:TextBox>
-                    <asp:TextBox ID="pin2" runat="server" MaxLength="1" CssClass="dep-pin"></asp:TextBox>
-                    <asp:TextBox ID="pin3" runat="server" MaxLength="1" CssClass="dep-pin"></asp:TextBox>
-                    <asp:TextBox ID="pin4" runat="server" MaxLength="1" CssClass="dep-pin"></asp:TextBox>
+                    <asp:TextBox ID="pin1" runat="server" MaxLength="1" CssClass="dep-pin" TextMode="Password"></asp:TextBox>
+                    <asp:TextBox ID="pin2" runat="server" MaxLength="1" CssClass="dep-pin" TextMode="Password"></asp:TextBox>
+                    <asp:TextBox ID="pin3" runat="server" MaxLength="1" CssClass="dep-pin" TextMode="Password"></asp:TextBox>
+                    <asp:TextBox ID="pin4" runat="server" MaxLength="1" CssClass="dep-pin" TextMode="Password"></asp:TextBox>
                 </div>
             </div>
 
@@ -285,6 +285,8 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 
         // Auto-jump PIN boxes
         document.querySelectorAll('input.dep-pin').forEach(function (el, i, arr) {
+            el.setAttribute('type', 'password');      // force hidden dots
+            el.setAttribute('inputmode', 'numeric'); // mobile numeric keyboard
             el.addEventListener('input', function () {
                 this.value = this.value.replace(/\D/g, '');
                 if (this.value && i < arr.length - 1) arr[i + 1].focus();
@@ -297,6 +299,6 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
         const realInput = document.getElementById('<%= txtAmount.ClientID %>');
         const displayInput = document.getElementById('txtAmountDisplay');
         displayInput.addEventListener('input', function () { realInput.value = this.value; });
-</script>
+    </script>
 </body>
 </html>

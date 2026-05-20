@@ -255,43 +255,55 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
         </div>
     </div>
     </form>
-
-    <script>
-        // Hide page loader
-        window.addEventListener('load', function () {
-            var loader = document.getElementById('pageLoader');
-            loader.classList.add('hidden');
-            setTimeout(function () { loader.style.display = 'none'; }, 400);
-        });
-
-        // Theme toggle
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-            var btn = document.querySelector('.theme-btn');
-            btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌑';
-            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+<script>
+    // Toggle password visibility
+    function togglePw(inputId, btn) {
+        var input = document.getElementById(inputId);
+        if (!input) return;
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.textContent = '🙈';
+        } else {
+            input.type = 'password';
+            btn.textContent = '👁️';
         }
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark');
-            document.querySelector('.theme-btn').textContent = '☀️';
-        }
+    }
 
-        // Smooth page fade-out on navigation
-        document.querySelectorAll('a[href]').forEach(function (link) {
-            if (link.href && !link.href.includes('#') && link.target !== '_blank') {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    var href = this.href;
-                    var main = document.querySelector('.main') || document.querySelector('.page-card') || document.querySelector('.container');
-                    if (main) {
-                        main.style.opacity = '0';
-                        main.style.transform = 'translateY(-10px)';
-                        main.style.transition = 'opacity 0.3s, transform 0.3s';
-                    }
-                    setTimeout(function () { window.location.href = href; }, 280);
-                });
-            }
-        });
+    // Hide page loader
+    window.addEventListener('load', function () {
+        var loader = document.getElementById('pageLoader');
+        loader.classList.add('hidden');
+        setTimeout(function () { loader.style.display = 'none'; }, 400);
+    });
+
+    // Theme toggle
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        var btn = document.querySelector('.theme-btn');
+        btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌑';
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+        document.querySelector('.theme-btn').textContent = '☀️';
+    }
+
+    // Smooth page fade-out on navigation
+    document.querySelectorAll('a[href]').forEach(function (link) {
+        if (link.href && !link.href.includes('#') && link.target !== '_blank') {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                var href = this.href;
+                var main = document.querySelector('.main') || document.querySelector('.page-card') || document.querySelector('.container');
+                if (main) {
+                    main.style.opacity = '0';
+                    main.style.transform = 'translateY(-10px)';
+                    main.style.transition = 'opacity 0.3s, transform 0.3s';
+                }
+                setTimeout(function () { window.location.href = href; }, 280);
+            });
+        }
+    });
 </script>
 </body>
 </html>
